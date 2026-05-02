@@ -17,3 +17,10 @@ deploymentTarget = "gce"
 [[ports]]
 localPort = 3000
 externalPort = 80
+
+[agent]
+expertMode = true
+run = "python manage.py runserver 0.0.0.0:8000"
+
+[webview]
+port = 8000
