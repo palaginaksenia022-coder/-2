@@ -1,0 +1,51 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_list %}
+
+{% block content %}
+<div id="content-main">
+    <h1>{{ cl.opts.verbose_name_plural|capfirst }}</h1>
+
+    <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+        {% block object-tools %}
+            <ul class="object-tools">
+                {% block object-tools-items %}
+                    <li><a href="add/{% if is_popup %}?_popup=1{% endif %}" class="addlink">Добавить {{ cl.opts.verbose_name }}</a></li>
+                {% endblock %}
+            </ul>
+        {% endblock %}
+
+        {% if cl.formset.errors %}
+            <p class="errornote">Исправьте ошибки ниже.</p>
+        {% endif %}
+
+        <div class="changelist-form-container">
+            {% block result_list %}
+                {% if cl.result_count %}
+                    <table style="width: 100%; background: white; border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr>
+                                {% for header in cl.result_headers %}
+                                <th scope="col" style="background: #e0f0fa; padding: 10px;">
+                                    {{ header.text|capfirst }}
+                                </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for result in cl.result_list %}
+                            <tr>
+                                {% for item in result %}
+                                <td style="padding: 8px; border-bottom: 1px solid #c8e4f5;">{{ item }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Нет записей.</p>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}

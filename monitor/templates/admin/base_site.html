@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Админ-панель | Контейнер безопасности гипервизора{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">🔐 Контейнер безопасности гипервизора (угроза №76)</h1>
+{% endblock %}
+
+{% block extrastyle %}
+<style>
+    #header {
+        background: linear-gradient(135deg, #2c5f8a 0%, #1a4a6e 100%);
+        color: white;
+    }
+    #branding h1 {
+        color: white;
+    }
+    .module h2, .module caption {
+        background: #2c5f8a;
+        color: white;
+    }
+</style>
+{% endblock %}

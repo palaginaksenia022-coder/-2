@@ -1,0 +1,62 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Чёрные и белые списки IP-адресов</h1>
+
+{% if error %}
+    <div style="color: red; padding: 10px; background: #ffe0e0; border-radius: 5px;">{{ error }}</div>
+{% endif %}
+{% if success %}
+    <div style="color: green; padding: 10px; background: #e0ffe0; border-radius: 5px;">{{ success }}</div>
+{% endif %}
+
+<div style="display: flex; gap: 40px; flex-wrap: wrap;">
+    <!-- ЧЁРНЫЙ СПИСОК -->
+    <div style="flex: 1; min-width: 300px;">
+        <h2>🚫 Чёрный список (заблокированные IP)</h2>
+        <form method="post" style="margin-bottom: 20px;">
+            {% csrf_token %}
+            <input type="text" name="ip" placeholder="IP-адрес" required>
+            <button type="submit" name="add_black" style="background: #dc3545; color: white;">➕ Добавить в чёрный список</button>
+        </form>
+        <ul>
+            {% for ip in blacklist %}
+            <li style="margin: 10px 0;">
+                {{ ip }}
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="ip" value="{{ ip }}">
+                    <button type="submit" name="remove_black" style="color: red;">✖ Удалить</button>
+                </form>
+            </li>
+            {% empty %}
+            <li>Нет заблокированных IP</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- БЕЛЫЙ СПИСОК -->
+    <div style="flex: 1; min-width: 300px;">
+        <h2>✅ Белый список (доверенные IP)</h2>
+        <form method="post" style="margin-bottom: 20px;">
+            {% csrf_token %}
+            <input type="text" name="ip" placeholder="IP-адрес" required>
+            <button type="submit" name="add_white" style="background: #28a745; color: white;">➕ Добавить в белый список</button>
+        </form>
+        <ul>
+            {% for ip in whitelist %}
+            <li style="margin: 10px 0;">
+                {{ ip }}
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="ip" value="{{ ip }}">
+                    <button type="submit" name="remove_white" style="color: red;">✖ Удалить</button>
+                </form>
+            </li>
+            {% empty %}
+            <li>Нет доверенных IP</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

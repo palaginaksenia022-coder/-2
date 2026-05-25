@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные сессии | Админ-панель</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f0ff 0%, #f0f8ff 100%);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0,100,150,0.2);
+            border: 1px solid #c8e4f5;
+        }
+        h1 {
+            color: #2c5f8a;
+            border-bottom: 2px solid #c8e4f5;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #c8e4f5;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background: #e0f0fa;
+            color: #2c5f8a;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 8px;
+            border-radius: 5px;
+            margin: 0;
+            white-space: pre-wrap;
+            font-size: 12px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #2c5f8a;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💾 Данные сессии</h1>
+
+        {% if session_keys %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ключ</th>
+                        <th>Значение</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key in session_keys %}
+                    <tr>
+                        <td><strong>{{ key }}</strong></td>
+                        <td><pre>{{ session_data|default:"" }}</pre></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Нет данных в сессии</p>
+        {% endif %}
+
+        <br>
+        <a href="/admin/" class="back-link">← Назад в админ-панель</a>
+    </div>
+</body>
+</html>

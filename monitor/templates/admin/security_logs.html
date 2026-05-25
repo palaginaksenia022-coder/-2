@@ -1,0 +1,45 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Журнал событий безопасности</h1>
+<p>Всего обработанных системных вызовов: {{ syscalls_count }}</p>
+
+{% if syscalls_data %}
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th>Время (сессия)</th>
+            <th>VM ID</th>
+            <th>Системный вызов</th>
+            <th>Пользователь</th>
+            <th>IP-адрес</th>
+            <th>Час</th>
+            <th>Аутентификация</th>
+            <th>Риск</th>
+            <th>Решение</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for syscall in syscalls_data %}
+        <tr>
+            <td>—</td>
+            <td>{{ syscall.vm_id }}</td>
+            <td>{{ syscall.syscall }}</td>
+            <td>{{ syscall.user }}</td>
+            <td>{{ syscall.ip }}</td>
+            <td>{{ syscall.hour }}</td>
+            <td>{% if syscall.auth_ok %}✅ Успешна{% else %}❌ Ошибка{% endif %}</td>
+            <td>{% widthratio syscall.risk 1 1 %}</td>
+            <td style="color: 
+                {% if syscall.risk >= 60 %}red{% elif syscall.risk >= 30 %}orange{% else %}green{% endif %};
+                font-weight: bold;">
+                {% if syscall.risk >= 60 %}BLOCK{% elif syscall.risk >= 30 %}LIMIT{% else %}ALLOW{% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Нет данных о системных вызовах</p>
+{% endif %}
+{% endblock %}

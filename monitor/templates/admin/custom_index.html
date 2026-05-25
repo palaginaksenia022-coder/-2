@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель | Контейнер безопасности гипервизора</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e0f0ff 0%, #f0f8ff 100%);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0,100,150,0.2);
+            border: 1px solid #c8e4f5;
+        }
+        h1 {
+            color: #2c5f8a;
+            border-bottom: 2px solid #c8e4f5;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2c5f8a;
+        }
+        .menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .menu-card {
+            background: #f0f8ff;
+            border: 1px solid #c8e4f5;
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            transition: transform 0.2s;
+        }
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,100,150,0.2);
+        }
+        .menu-card a {
+            text-decoration: none;
+            color: #2c5f8a;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .menu-card p {
+            color: #3a6e96;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .user-info {
+            text-align: right;
+            padding: 10px;
+            background: #e0f0fa;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        .logout-btn:hover {
+            background: #b02a37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="user-info">
+            <strong>{{ request.user.username }}</strong> — Вы вошли как администратор
+            <a href="/admin/logout/" class="logout-btn">🚪 Выйти из админ-панели</a>
+        </div>
+
+        <h1>🔐 Управление системой мониторинга</h1>
+        <p>Контейнер безопасности гипервизора | Угроза №76 | Банковский процессинг</p>
+
+        <div class="menu">
+            <div class="menu-card">
+                <a href="/admin/black-white-lists/">🚫 Чёрные и белые списки IP</a>
+                <p>Управление доверенными и заблокированными IP-адресами</p>
+            </div>
+            <div class="menu-card">
+                <a href="/admin/security-logs/">📜 Журнал событий безопасности</a>
+                <p>Просмотр всех системных вызовов и решений контейнера</p>
+            </div>
+            <div class="menu-card">
+                <a href="/admin/blocked-ips/">🔒 Заблокированные IP</a>
+                <p>Быстрое добавление/удаление IP из чёрного списка</p>
+            </div>
+            <div class="menu-card">
+                <a href="/admin/admin-logs/">📋 Журнал действий администратора</a>
+                <p>История действий пользователей в админ-панели</p>
+            </div>
+            <div class="menu-card">
+                <a href="/admin/session-data/">💾 Данные сессии</a>
+                <p>Просмотр текущих данных в сессии</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

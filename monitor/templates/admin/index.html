@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Управление системой мониторинга</h1>
+
+<table style="width: 100%;">
+    <caption>Мониторинг</caption>
+    <tbody>
+        <tr>
+            <th scope="row"><a href="/admin/black-white-lists/">🚫 Чёрные и белые списки IP</a></th>
+        </tr>
+        <tr>
+            <th scope="row"><a href="/admin/security-logs/">📜 Журнал событий безопасности</a></th>
+        </tr>
+        <tr>
+            <th scope="row"><a href="/admin/blocked-ips/">🔒 Заблокированные IP</a></th>
+        </tr>
+        <tr>
+            <th scope="row"><a href="/admin/admin-logs/">📋 Журнал действий администратора</a></th>
+        </tr>
+        <tr>
+            <th scope="row"><a href="/admin/session-data/">💾 Данные сессии</a></th>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Недавние действия</h2>
+<p>Нет недавних действий</p>
+{% endblock %}

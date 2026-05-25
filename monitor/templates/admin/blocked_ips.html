@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Заблокированные IP-адреса</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="ip" placeholder="IP-адрес">
+    <button type="submit" name="add">➕ Добавить</button>
+</form>
+
+<ul>
+    {% for ip in blocked_ips %}
+    <li>
+        {{ ip }}
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="ip" value="{{ ip }}">
+            <button type="submit" name="remove" style="color: red;">✖ Удалить</button>
+        </form>
+    </li>
+    {% empty %}
+    <li>Нет заблокированных IP</li>
+    {% endfor %}
+</ul>
+{% endblock %}

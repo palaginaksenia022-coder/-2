@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<div id="content-main">
+    <h1>{{ title }}</h1>
+    <form method="post" style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #c8e4f5;">
+        {% csrf_token %}
+        {% for field in form %}
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: bold; color: #2c5f8a; display: block; margin-bottom: 5px;">
+                {{ field.label }}{% if field.field.required %} *{% endif %}
+            </label>
+            {{ field }}
+            {% if field.errors %}
+            <div style="color: red; font-size: 12px;">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div style="margin-top: 20px;">
+            <button type="submit" style="background: #2c5f8a; color: white; padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer;">Сохранить</button>
+            <a href="../" style="margin-left: 10px; color: #dc3545;">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

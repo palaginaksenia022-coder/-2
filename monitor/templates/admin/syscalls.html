@@ -1,0 +1,26 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Системные вызовы в сессии</h1>
+<p>Всего записей: {{ syscalls_count }}</p>
+
+<table style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr><th>VM ID</th><th>Системный вызов</th><th>Пользователь</th><th>IP</th><th>Час</th><th>Аутентификация</th></tr>
+    </thead>
+    <tbody>
+        {% for syscall in syscalls_data %}
+        <tr>
+            <td>{{ syscall.vm_id }}</td>
+            <td>{{ syscall.syscall }}</td>
+            <td>{{ syscall.user }}</td>
+            <td>{{ syscall.ip }}</td>
+            <td>{{ syscall.hour }}</td>
+            <td>{% if syscall.auth_ok %}✅ Успешна{% else %}❌ Ошибка{% endif %}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Нет данных</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
